@@ -27,4 +27,36 @@ public class Lexer {
         }
         return source.charAt(curPos + 1);
     }
+
+    // Error message
+    public void abort(String message) {
+        System.out.println("Lexing error. " + message);
+        System.exit(0);
+    }
+
+    // Return the next token
+    public Token getToken() {
+        Token token = null;
+
+        // Check the first character of the token
+        // If it is a long operator like !=, number, identifier, or keyword we will proccess.
+        if(curChar == '+') {
+            token = new Token(String.valueOf(curChar), TokenType.PLUS);
+        } else if(curChar == '-') {
+            token = new Token(String.valueOf(curChar), TokenType.MINUS);
+        } else if(curChar == '*') {
+            token = new Token(String.valueOf(curChar), TokenType.STAR);
+        } else if(curChar == '/') {
+            token = new Token(String.valueOf(curChar), TokenType.SLASH);
+        } else if(curChar == '\n') {
+            token = new Token(String.valueOf(curChar), TokenType.NEWLINE);
+        } else if(curChar == '\0') {
+            token = new Token("", TokenType.EOF);
+        } else {
+            // WTF is this token
+            abort("Unknown token: " + curChar);
+        }
+        nextChar();
+        return token;
+    }
 }
