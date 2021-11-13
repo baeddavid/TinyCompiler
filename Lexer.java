@@ -34,8 +34,16 @@ public class Lexer {
         System.exit(0);
     }
 
+    // Skip white spaces
+    public void skipWhiteSpace() {
+        while(curChar == ' ' || curChar == '\t' || curChar == '\r') {
+            nextChar();
+        }
+    }
+
     // Return the next token
     public Token getToken() {
+        skipWhiteSpace();
         Token token = null;
 
         // Check the first character of the token
