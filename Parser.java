@@ -59,13 +59,14 @@ public class Parser {
         if(checkToken(TokenType.PRINT)) {
             System.out.println("STATEMENT-PRINT");
             nextToken();
+
+            if(checkToken(TokenType.STRING)) {
+                nextToken();
+            } else {
+                System.out.println("HMMMM");
+            }
         }
 
-        if(checkToken(TokenType.STRING)) {
-            nextToken();
-        } else {
-            System.out.println("HMMMM");
-        }
         nl();
     }
 
