@@ -41,9 +41,19 @@ public class Lexer {
         }
     }
 
+    // Skip comments
+    public void skipComments() {
+        if(curChar == '#') {
+            while(curChar != '\n') {
+                nextChar();
+            }
+        }
+    }
+
     // Return the next token
     public Token getToken() {
         skipWhiteSpace();
+        skipComments();
         Token token = null;
         String value = String.valueOf(curChar);
 
