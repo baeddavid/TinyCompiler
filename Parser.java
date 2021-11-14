@@ -135,6 +135,27 @@ public class Parser {
         nl();
     }
 
+    // comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=")expression)+
+    public void comparison() {
+        System.out.println("COMPARISON");
+
+        expression();
+        // Must be at least one comparison operator and another expression
+        if(isComparisonOperator()) {
+            nextToken();
+            expression();
+        } else {
+            abort("Expected comparison operator at: " + curToken.text);
+        }
+
+        while(isComparisonOperator()) {
+            nextToken();
+            expression();
+        }
+    }
+
+
+
     // nl ::= '\n'+
     public void nl() {
         System.out.println("NEWLINE");
