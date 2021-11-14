@@ -82,7 +82,22 @@ public class Parser {
 
             match(TokenType.ENDIF);
         }
+        // "WHILE" comparison "REPEAT" {statement} "ENDWHILE"
+        else if(checkToken(TokenType.WHILE)) {
+            System.out.println("STATEMENT-WHILE");
+            nextToken();
+            comparison();
 
+            match(TokenType.REPEAT);
+            nl();
+
+            // Zero or more statements in the loop body
+            while(!checkToken(TokenType.ENDWHILE)) {
+                statement();
+            }
+
+            match(TokenType.ENDWHILE);
+        }
         nl();
     }
 
