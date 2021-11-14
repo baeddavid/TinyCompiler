@@ -110,6 +110,24 @@ public class Parser {
             nextToken();
             match(TokenType.IDENT);
         }
+        // "LET" ident "=" expression nl
+        else if(checkToken(TokenType.LET)) {
+            System.out.println("STATEMENT-LET");
+            nextToken();
+            match(TokenType.IDENT);
+            match(TokenType.EQ);
+            expression();
+        }
+        // "INPUT" ident nl
+        else if(checkToken(TokenType.INPUT)) {
+            System.out.println("STATEMENT-PUT");
+            nextToken();
+            match(TokenType.IDENT);
+        }
+        // Not valid
+        else {
+            abort("Invalid statement at " + curToken.text + "( " + curToken.kind.getKey() + ")");
+        }
         nl();
     }
 
