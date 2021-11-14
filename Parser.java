@@ -161,6 +161,18 @@ public class Parser {
             checkToken(TokenType.EQEQ) || checkToken(TokenType.NOTEQ);
     }
 
+    // experssion ::= term{("-" | "+") term}
+    public void expression() {
+        System.out.println("EXPRESSION");
+
+        term();
+        // Can have 0 or more +/- and expressions.
+        while(checkToken(TokenType.PLUS) || checkToken(TokenType.MINUS)) {
+            nextToken();
+            term();
+        }
+    }
+
     // term ::= unary {("/" | "*") unary}
     public void term() {
         System.out.println("TERM");
