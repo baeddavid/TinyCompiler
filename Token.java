@@ -1,13 +1,13 @@
 public class Token {
     public String text;
-    public Enum kind;
+    public TokenType kind;
 
-    public Token(String tokenText, Enum tokenKind) {
+    public Token(String tokenText, TokenType tokenKind) {
         text = tokenText;
         kind = tokenKind;
     }
 
-    public static Enum checkIfKeyword(String tokenText) {
+    public static TokenType checkIfKeyword(String tokenText) {
         try {
             TokenType candidate = TokenType.valueOf(tokenText);
             if(candidate.getKey().equals(tokenText) && candidate.getValue() >= 100 && candidate.getValue() < 200) {
