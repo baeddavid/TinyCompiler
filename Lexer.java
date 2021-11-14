@@ -116,6 +116,26 @@ public class Lexer {
 
             String tokText = source.substring(startPos, curPos);
             token = new Token(tokText, TokenType.STRING);
+        } else if(Character.isDigit(curChar)) {
+            Integer startPos = curPos;
+            while(Character.isDigit(peek())) {
+                nextChar();
+            }
+            if(peek() == '.') {
+                nextChar();
+
+                // Must have one digit after decimal
+                if(!Character.isDigit(peek())) {
+                    // SHEESH
+                    abort("Illegal character in number");
+                }
+                while(Character.isDigit(peek())) {
+                    nextChar();
+                }
+            }
+
+            String tokText = source.substring(startPos, curPos + 1);
+            token = new Token(tokText, TokenType.NUMBER);
         }
 
         else if(curChar == '\n') {
