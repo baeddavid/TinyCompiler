@@ -48,6 +48,10 @@ public class Parser {
     public void program() {
         System.out.println("PROGRAM");
 
+        while(checkToken(TokenType.NEWLINE)) {
+            nextToken();
+        }
+
         while(!checkToken(TokenType.EOF)) {
             statement();
         }
