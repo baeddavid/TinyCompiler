@@ -98,6 +98,18 @@ public class Parser {
 
             match(TokenType.ENDWHILE);
         }
+        // "LABEL" ident nl
+        else if(checkToken(TokenType.LABEL)) {
+            System.out.println("STATEMENT-LABEL");
+            nextToken();
+            match(TokenType.IDENT);
+        }
+        // "GOTO" ident nl
+        else if(checkToken(TokenType.GOTO)) {
+            System.out.println("STATEMENT-GOTO");
+            nextToken();
+            match(TokenType.IDENT);
+        }
         nl();
     }
 
