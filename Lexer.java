@@ -151,9 +151,7 @@ public class Lexer {
             } else {
                 token = new Token(tokText, keyword);
             }
-        }
-
-        else if(curChar == '\n') {
+        } else if(curChar == '\n') {
             token = new Token(String.valueOf(curChar), TokenType.NEWLINE);
         } else if(curChar == '\0') {
             token = new Token("", TokenType.EOF);
