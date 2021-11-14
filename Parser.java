@@ -66,6 +66,22 @@ public class Parser {
                 System.out.println("HMMMM");
             }
         }
+        // "IF" comparison "THEN" {statement} "ENDIF"
+        else if(checkToken(TokenType.IF)) {
+            System.out.println("STATEMENT-IF");
+            nextToken();
+            comparison();
+
+            match(TokenType.THEN);
+            nl();
+
+            // Zero or more statements in the body
+            while(!checkToken(TokenType.ENDIF)) {
+                statement();
+            }
+
+            match(TokenType.ENDIF);
+        }
 
         nl();
     }
