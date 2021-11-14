@@ -183,7 +183,19 @@ public class Parser {
         primary();
     }
 
+    // primary ::= number | ident
+    public void primary() {
+        System.out.println("Primary (" + curToken.text + ")");
 
+        if(checkToken(TokenType.NUMBER)) {
+            nextToken();
+        } else if(checkToken(TokenType.IDENT)) {
+            nextToken();
+        } else {
+            // SHEESH
+            abort("Unexpected token at " + curToken.text);
+        }
+    }
 
     // nl ::= '\n'+
     public void nl() {
