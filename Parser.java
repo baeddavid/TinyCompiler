@@ -67,7 +67,7 @@ public class Parser {
             if(checkToken(TokenType.STRING)) {
                 nextToken();
             } else {
-                System.out.println("HMMMM");
+                expression();
             }
         }
         // "IF" comparison "THEN" {statement} "ENDIF"
