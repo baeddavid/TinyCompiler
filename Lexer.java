@@ -45,18 +45,56 @@ public class Lexer {
     public Token getToken() {
         skipWhiteSpace();
         Token token = null;
+        String value = String.valueOf(curChar);
 
         // Check the first character of the token
         // If it is a long operator like !=, number, identifier, or keyword we will proccess.
         if(curChar == '+') {
-            token = new Token(String.valueOf(curChar), TokenType.PLUS);
+            token = new Token(value, TokenType.PLUS);
         } else if(curChar == '-') {
-            token = new Token(String.valueOf(curChar), TokenType.MINUS);
+            token = new Token(value, TokenType.MINUS);
         } else if(curChar == '*') {
-            token = new Token(String.valueOf(curChar), TokenType.STAR);
+            token = new Token(value, TokenType.STAR);
         } else if(curChar == '/') {
-            token = new Token(String.valueOf(curChar), TokenType.SLASH);
-        } else if(curChar == '\n') {
+            token = new Token(value, TokenType.SLASH);
+        } else if(curChar == '=') {
+            // Check if this is EQ or EQEQ
+            if(peek() == '=') {
+                String lastChar = value;
+                nextChar();
+                token = new Token(lastChar + curChar, TokenType.EQEQ);
+            } else {
+                token = new Token(value, TokenType.EQ);
+            }
+        } else if(curChar == '>') {
+            // Check if this is GT or GTEQ
+            if(peek() == '=') {
+                String lastChar = value;
+                nextChar();
+                token = new Token(lastChar + curChar, TokenType.GTEQ);
+            } else {
+                token = new Token(value, TokenType.GT);
+            }
+        } else if(curChar == '<') {
+            // Check if this is LT or LTEQ
+            if(peek() == '=') {
+                String lastChar = value;
+                nextChar();
+                token = new Token(lastChar + curChar, TokenType.LTEQ);
+            } else {
+                token = new Token(value, TokenType.LT);
+            }
+        } else if(curChar == '!') {
+            if(peek() == '=') {
+                String lastChar = value;
+                nextChar();
+                token = new Token(lastChar + curChar, TokenType.NOTEQ);
+            } else {
+                abort("Expected !=, got!" + peek());
+            }
+        }
+
+        else if(curChar == '\n') {
             token = new Token(String.valueOf(curChar), TokenType.NEWLINE);
         } else if(curChar == '\0') {
             token = new Token("", TokenType.EOF);
