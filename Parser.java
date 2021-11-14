@@ -130,7 +130,7 @@ public class Parser {
         }
         // Not valid
         else {
-            abort("Invalid statement at " + curToken.text + "( " + curToken.kind.getKey() + ")");
+            abort("Invalid statement at " + curToken.text + "(" + curToken.kind.getKey() + ")");
         }
         nl();
     }

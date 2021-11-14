@@ -10,6 +10,20 @@ public class Lexer {
         nextChar();
     }
 
+    // Check if tokenText is an existing keyword
+    public static TokenType checkIfKeyword(String tokenText) {
+        try {
+            TokenType candidate = TokenType.valueOf(tokenText);
+            if(candidate.getKey().equals(tokenText) && candidate.getValue() >= 100 && candidate.getValue() < 200) {
+                return candidate;
+            }
+        }
+        catch(IllegalArgumentException i) {
+            return null;
+        }
+        return null;
+    }
+
     // Process the next character
     public void nextChar() {
         curPos++;
@@ -145,7 +159,7 @@ public class Lexer {
 
             // Check if the token is in the list of keywords. We can use enum values for this
             String tokText = source.substring(startPos, curPos + 1);
-            Enum keyword = Token.checkIfKeyword(tokText);
+            TokenType keyword = checkIfKeyword(tokText);
             if(keyword == null) {
                 token = new Token(tokText, TokenType.IDENT);
             } else {

@@ -5,7 +5,7 @@ enum TokenType {
     IDENT("IDENT", 2),
     STRING("STRING", 3),
     // Keywords
-    LABEL("LABEl", 101),
+    LABEL("LABEL", 101),
     GOTO("GOTO", 102),
     PRINT("PRINT", 103),
     INPUT("INPUT", 104),
