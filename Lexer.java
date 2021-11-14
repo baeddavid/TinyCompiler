@@ -136,6 +136,21 @@ public class Lexer {
 
             String tokText = source.substring(startPos, curPos + 1);
             token = new Token(tokText, TokenType.NUMBER);
+        } else if(Character.isLetter(curChar)) {
+            // First char is a letter so it's either an identifier or a keyword
+            Integer startPos = curPos;
+            while(Character.isLetter(peek())) {
+                nextChar();
+            }
+
+            // Check if the token is in the list of keywords. We can use enum values for this
+            String tokText = source.substring(startPos, curPos + 1);
+            Enum keyword = Token.checkIfKeyword(tokText);
+            if(keyword == null) {
+                token = new Token(tokText, TokenType.IDENT);
+            } else {
+                token = new Token(tokText, keyword);
+            }
         }
 
         else if(curChar == '\n') {
