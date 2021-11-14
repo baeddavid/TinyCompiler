@@ -154,6 +154,13 @@ public class Parser {
         }
     }
 
+    // Return true if the current token is a comparison operator
+    public boolean isComparisonOperator() {
+        return checkToken(TokenType.GT) || checkToken(TokenType.GTEQ) ||
+            checkToken(TokenType.LT) || checkToken(TokenType.LTEQ) ||
+            checkToken(TokenType.EQEQ) || checkToken(TokenType.NOTEQ);
+    }
+
 
 
     // nl ::= '\n'+
