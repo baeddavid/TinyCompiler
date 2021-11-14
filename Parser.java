@@ -172,6 +172,19 @@ public class Parser {
         }
     }
 
+    // unary ::= ["+" | "-"] primary
+    public void unary() {
+        System.out.println("UNARY");
+
+        // Optional unary +/-
+        if(checkToken(TokenType.PLUS) || checkToken(TokenType.MINUS)) {
+            nextToken();
+        }
+        primary();
+    }
+
+
+
     // nl ::= '\n'+
     public void nl() {
         System.out.println("NEWLINE");
