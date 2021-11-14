@@ -102,6 +102,20 @@ public class Lexer {
             } else {
                 abort("Expected !=, got!" + peek());
             }
+        } else if(curChar == '\"') {
+            // Get characters in between quotations
+            nextChar();
+            Integer startPos = curPos;
+
+            while(curChar != '\"') {
+                if(curChar == '\r' || curChar == '\n' || curChar == '\t' || curChar == '\\' || curChar == '%') {
+                    abort("Illegal character in string");
+                }
+                nextChar();
+            }
+
+            String tokText = source.substring(startPos, curPos);
+            token = new Token(tokText, TokenType.STRING);
         }
 
         else if(curChar == '\n') {
