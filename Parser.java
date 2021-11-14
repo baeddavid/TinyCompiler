@@ -161,7 +161,16 @@ public class Parser {
             checkToken(TokenType.EQEQ) || checkToken(TokenType.NOTEQ);
     }
 
+    // term ::= unary {("/" | "*") unary}
+    public void term() {
+        System.out.println("TERM");
+        unary();
 
+        while(checkToken(TokenType.STAR) || checkToken(TokenType.SLASH)) {
+            nextToken();
+            unary();
+        }
+    }
 
     // nl ::= '\n'+
     public void nl() {
