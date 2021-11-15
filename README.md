@@ -4,9 +4,7 @@ This was my attempt at implementing a very basic compiler that takes Tiny BASIC 
 
 The following grammar is the grammar that was implemented.
 
-``
+## Grammar
+
     program = { statement }
-
-``
-
-
+    statemen = "PRINT" ( expression | string ) nl
