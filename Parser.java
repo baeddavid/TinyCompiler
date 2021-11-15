@@ -165,7 +165,7 @@ public class Parser {
             match(TokenType.IDENT);
             match(TokenType.EQ);
             expression();
-            emmiter.emitLine(";");
+            emitter.emitLine(";");
         }
         // "INPUT" ident nl
         else if(checkToken(TokenType.INPUT)) {
