@@ -133,7 +133,6 @@ public class Parser {
         }
         // "LABEL" ident nl
         else if(checkToken(TokenType.LABEL)) {
-            System.out.println("STATEMENT-LABEL");
             nextToken();
 
             // Check to see if this label already exists
@@ -142,13 +141,14 @@ public class Parser {
             }
             labelsDeclared.add(curToken.text);
 
+            emitter.emitLine(curToken.text + ":");
             match(TokenType.IDENT);
         }
         // "GOTO" ident nl
         else if(checkToken(TokenType.GOTO)) {
-            System.out.println("STATEMENT-GOTO");
             nextToken();
             labelsGotoed.add(curToken.text);
+            emitter.emitLine("goto " + curToken.text + ";");
             match(TokenType.IDENT);
         }
         // "LET" ident "=" expression nl
