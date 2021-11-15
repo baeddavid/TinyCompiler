@@ -41,4 +41,4 @@ After the input has gone through the lexer, we begin parsing the code in accorda
 ## Images
 
 Output
-![Alt text](/output.png?raw=true "Output")
+[![output.png](https://i.postimg.cc/hGqQGGyR/output.png)](https://postimg.cc/yDv8Q7CL)
