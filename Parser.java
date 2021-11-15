@@ -174,7 +174,14 @@ public class Parser {
             // If variable doesn't exist make it
             if(!symbols.contains(curToken.text)) {
                 symbols.add(curToken.text);
+                emitter.headerLine("float " + curToken.text + ";");
             }
+
+            emitter.emitLine("if(0 == scanf(\"%" + "f\", &" + curToken.text + ")) {");
+            emitter.emitLine(curToken.text + " = 0;");
+            emitter.emit("scanf(\"%");
+            emitter.emitLine("*s\");");
+            emitter.emitLine("}");
 
             match(TokenType.IDENT);
         }
