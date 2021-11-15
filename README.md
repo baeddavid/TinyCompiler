@@ -41,4 +41,4 @@ After the input has gone through the lexer, we begin parsing the code in accorda
 ## Images
 
 Output
-![alt text] (https://i.ibb.co/gwzC4hP/output.png)
+![Alt text](/output.png?raw=true "Output")
