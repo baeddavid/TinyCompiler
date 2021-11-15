@@ -158,11 +158,14 @@ public class Parser {
             // Check if ident exists in symbol table
             if(!symbols.contains(curToken.text)) {
                 symbols.add(curToken.text);
+                emitter.headerLine("float " + curToken.text + ";");
             }
 
+            emitter.emit(curToken.text + " = ");
             match(TokenType.IDENT);
             match(TokenType.EQ);
             expression();
+            emmiter.emitLine(";");
         }
         // "INPUT" ident nl
         else if(checkToken(TokenType.INPUT)) {
