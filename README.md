@@ -36,3 +36,9 @@ After the input has gone through the lexer, we begin parsing the code in accorda
  Run `javac TinyCompiler.java` inside the repo directory. 
  Run `java TinyCompiler "path to your tiny file"`
  There should be a new file in the repo directory called `out.c` that contains the compiled code.
+
+
+## Images
+
+Output
+![alt text] (https://i.ibb.co/gwzC4hP/output.png)
