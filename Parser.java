@@ -1,10 +1,20 @@
+import java.util.HashSet;
+
 public class Parser {
     public Token curToken;
     public Token peekToken;
     public Lexer lexer;
+    public HashSet<String> symbols;
+    public HashSet<String> labelsDeclared;
+    public HashSet<String> labelsGotoed;
 
     public Parser(Lexer lexer) {
         this.lexer = lexer;
+
+        symbols = new HashSet<>();
+        labelsDeclared = new HashSet<>();
+        labelsGotoed = new HashSet<>();
+
         curToken = null;
         peekToken = null;
         nextToken();
@@ -54,6 +64,13 @@ public class Parser {
 
         while(!checkToken(TokenType.EOF)) {
             statement();
+        }
+
+        // Check that each label referenced in GOTO is real
+        for(String label : labelsGotoed) {
+            if(!labelsDeclared.contains(label)) {
+                abort("Attempting to GOTO to an undeclared label: " + label);
+            }
         }
     }
 
@@ -106,26 +123,44 @@ public class Parser {
         else if(checkToken(TokenType.LABEL)) {
             System.out.println("STATEMENT-LABEL");
             nextToken();
+
+            // Check to see if this label already exists
+            if(labelsDeclared.contains(curToken.text)) {
+                abort("Label already exists: " + curToken.text);
+            }
+            labelsDeclared.add(curToken.text);
+
             match(TokenType.IDENT);
         }
         // "GOTO" ident nl
         else if(checkToken(TokenType.GOTO)) {
             System.out.println("STATEMENT-GOTO");
             nextToken();
+            labelsGotoed.add(curToken.text);
             match(TokenType.IDENT);
         }
         // "LET" ident "=" expression nl
         else if(checkToken(TokenType.LET)) {
-            System.out.println("STATEMENT-LET");
             nextToken();
+
+            // Check if ident exists in symbol table
+            if(!symbols.contains(curToken.text)) {
+                symbols.add(curToken.text);
+            }
+
             match(TokenType.IDENT);
             match(TokenType.EQ);
             expression();
         }
         // "INPUT" ident nl
         else if(checkToken(TokenType.INPUT)) {
-            System.out.println("STATEMENT-PUT");
             nextToken();
+
+            // If variable doesn't exist make it
+            if(!symbols.contains(curToken.text)) {
+                symbols.add(curToken.text);
+            }
+
             match(TokenType.IDENT);
         }
         // Not valid
@@ -202,6 +237,10 @@ public class Parser {
         if(checkToken(TokenType.NUMBER)) {
             nextToken();
         } else if(checkToken(TokenType.IDENT)) {
+            // Does it exist?
+            if(!symbols.contains(curToken.text)) {
+                abort("Referencing variable before assignment: " + curToken.text);
+            }
             nextToken();
         } else {
             // SHEESH
