@@ -84,13 +84,15 @@ public class Parser {
     public void statement() {
         // "PRINT" (expression || string)
         if(checkToken(TokenType.PRINT)) {
-            System.out.println("STATEMENT-PRINT");
             nextToken();
 
             if(checkToken(TokenType.STRING)) {
+                emitter.emitLine("printf(\"" + curToken.text + "\\n\");");
                 nextToken();
             } else {
+                emitter.emit("printf(\"%" + ".2f\\n\", (float)(");
                 expression();
+                emitter.emitLine("));");
             }
         }
         // "IF" comparison "THEN" {statement} "ENDIF"
