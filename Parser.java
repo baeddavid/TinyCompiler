@@ -97,12 +97,13 @@ public class Parser {
         }
         // "IF" comparison "THEN" {statement} "ENDIF"
         else if(checkToken(TokenType.IF)) {
-            System.out.println("STATEMENT-IF");
             nextToken();
+            emitter.emit("if(");
             comparison();
 
             match(TokenType.THEN);
             nl();
+            emitter.emitLine("){");
 
             // Zero or more statements in the body
             while(!checkToken(TokenType.ENDIF)) {
@@ -110,15 +111,17 @@ public class Parser {
             }
 
             match(TokenType.ENDIF);
+            emitter.emitLine("}");
         }
         // "WHILE" comparison "REPEAT" {statement} "ENDWHILE"
         else if(checkToken(TokenType.WHILE)) {
-            System.out.println("STATEMENT-WHILE");
             nextToken();
+            emitter.emit("while(");
             comparison();
 
             match(TokenType.REPEAT);
             nl();
+            emitter.emitLine("){");
 
             // Zero or more statements in the loop body
             while(!checkToken(TokenType.ENDWHILE)) {
@@ -126,6 +129,7 @@ public class Parser {
             }
 
             match(TokenType.ENDWHILE);
+            emitter.emitLine("}");
         }
         // "LABEL" ident nl
         else if(checkToken(TokenType.LABEL)) {
