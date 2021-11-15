@@ -28,3 +28,11 @@ Tokens are essentially key-value objects that store the text of the token and wh
 The value of the Token is an enumeration key-value object that further stores details of the token.
 
 After the input has gone through the lexer, we begin parsing the code in accordance to our above grammar. 
+
+## instructions
+
+ If for some odd reason you want to try and use this compiler set up is easy.
+ Clone the repo into your desired location. 
+ Run `javac TinyCompiler.java` inside the repo directory. 
+ Run `java TinyCompiler "path to your tiny file"`
+ There should be a new file in the repo directory called `out.c` that contains the compiled code.
