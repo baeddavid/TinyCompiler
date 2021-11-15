@@ -194,11 +194,10 @@ public class Parser {
 
     // comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=")expression)+
     public void comparison() {
-        System.out.println("COMPARISON");
-
         expression();
         // Must be at least one comparison operator and another expression
         if(isComparisonOperator()) {
+            emitter.emit(curToken.text);
             nextToken();
             expression();
         } else {
@@ -206,6 +205,7 @@ public class Parser {
         }
 
         while(isComparisonOperator()) {
+            emitter.emit(curToken.text);
             nextToken();
             expression();
         }
@@ -220,11 +220,10 @@ public class Parser {
 
     // experssion ::= term{("-" | "+") term}
     public void expression() {
-        System.out.println("EXPRESSION");
-
         term();
         // Can have 0 or more +/- and expressions.
         while(checkToken(TokenType.PLUS) || checkToken(TokenType.MINUS)) {
+            emitter.emit(curToken.text);
             nextToken();
             term();
         }
@@ -232,10 +231,10 @@ public class Parser {
 
     // term ::= unary {("/" | "*") unary}
     public void term() {
-        System.out.println("TERM");
         unary();
 
         while(checkToken(TokenType.STAR) || checkToken(TokenType.SLASH)) {
+            emitter.emit(curToken.text);
             nextToken();
             unary();
         }
@@ -243,10 +242,9 @@ public class Parser {
 
     // unary ::= ["+" | "-"] primary
     public void unary() {
-        System.out.println("UNARY");
-
         // Optional unary +/-
         if(checkToken(TokenType.PLUS) || checkToken(TokenType.MINUS)) {
+            emitter.emit(curToken.text);
             nextToken();
         }
         primary();
@@ -254,15 +252,15 @@ public class Parser {
 
     // primary ::= number | ident
     public void primary() {
-        System.out.println("Primary (" + curToken.text + ")");
-
         if(checkToken(TokenType.NUMBER)) {
+            emitter.emit(curToken.text);
             nextToken();
         } else if(checkToken(TokenType.IDENT)) {
             // Does it exist?
             if(!symbols.contains(curToken.text)) {
                 abort("Referencing variable before assignment: " + curToken.text);
             }
+            emitter.emit(curToken.text);
             nextToken();
         } else {
             // SHEESH
@@ -272,7 +270,6 @@ public class Parser {
 
     // nl ::= '\n'+
     public void nl() {
-        System.out.println("NEWLINE");
         match(TokenType.NEWLINE);
         while(checkToken(TokenType.NEWLINE)) {
             nextToken();
