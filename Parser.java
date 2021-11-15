@@ -4,12 +4,14 @@ public class Parser {
     public Token curToken;
     public Token peekToken;
     public Lexer lexer;
+    public Emitter emitter;
     public HashSet<String> symbols;
     public HashSet<String> labelsDeclared;
     public HashSet<String> labelsGotoed;
 
-    public Parser(Lexer lexer) {
+    public Parser(Lexer lexer, Emitter emitter) {
         this.lexer = lexer;
+        this.emitter = emitter;
 
         symbols = new HashSet<>();
         labelsDeclared = new HashSet<>();
@@ -56,7 +58,8 @@ public class Parser {
     // Our production rules
     // program ::= {statement}
     public void program() {
-        System.out.println("PROGRAM");
+        emitter.headerLine("#include <stdio.h>");
+        emitter.headerLine("int main(void) {");
 
         while(checkToken(TokenType.NEWLINE)) {
             nextToken();
@@ -65,6 +68,9 @@ public class Parser {
         while(!checkToken(TokenType.EOF)) {
             statement();
         }
+
+        emitter.emitLine("return 0;");
+        emitter.emitLine("}");
 
         // Check that each label referenced in GOTO is real
         for(String label : labelsGotoed) {
