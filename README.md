@@ -29,7 +29,7 @@ The value of the Token is an enumeration key-value object that further stores de
 
 After the input has gone through the lexer, we begin parsing the code in accordance to our above grammar. 
 
-## instructions
+## Instructions 
 
  If for some odd reason you want to try and use this compiler set up is easy.
  Clone the repo into your desired location. 
