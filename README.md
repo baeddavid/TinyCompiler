@@ -32,9 +32,13 @@ After the input has gone through the lexer, we begin parsing the code in accorda
 ## Instructions 
 
  If for some odd reason you want to try and use this compiler set up is easy.
+ 
  Clone the repo into your desired location. 
+ 
  Run `javac TinyCompiler.java` inside the repo directory. 
+ 
  Run `java TinyCompiler "path to your tiny file"`
+ 
  There should be a new file in the repo directory called `out.c` that contains the compiled code.
 
 
