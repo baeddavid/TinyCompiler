@@ -40,6 +40,8 @@ After the input has gone through the lexer, we begin parsing the code in accorda
 
 ## Images
 Input
+
 [![input.png](https://i.postimg.cc/26kq4KNH/input.png)](https://postimg.cc/XZP7WxJF)
 Output
+
 [![output.png](https://i.postimg.cc/hGqQGGyR/output.png)](https://postimg.cc/yDv8Q7CL)
